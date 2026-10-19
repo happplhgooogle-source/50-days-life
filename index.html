@@ -482,8 +482,8 @@
 
   /* 游戏菜单式属性行（暗面板） */
   .row-card {
-    position: relative; display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    padding: 5px 10px 5px 24px; margin: 5px 3px;
+    position: relative; display: flex; align-items: center; justify-content: space-between; gap: 6px;
+    padding: 5px 8px 5px 22px; margin: 5px 3px;
     background: rgba(255,255,255,0.05);
     border: 2px solid var(--line); border-radius: 8px;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 0 rgba(0,0,0,0.4);
@@ -499,39 +499,59 @@
   .row-card[data-key="skill"]:active { transform: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 2px 0 rgba(0,0,0,0.4); }
 
   .rc-left { display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1; }
-  .rc-badge { width: 24px; height: 24px; flex-shrink: 0; border-radius: 4px;
+  .rc-badge { width: 22px; height: 22px; flex-shrink: 0; border-radius: 4px;
     background: linear-gradient(180deg, var(--purple), var(--purple-deep)); border: 2px solid var(--frame-2);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 2px 0 rgba(0,0,0,0.4);
-    display: inline-flex; align-items: center; justify-content: center; font-size: 13px; }
+    display: inline-flex; align-items: center; justify-content: center; font-size: 12px; }
   .rc-info { min-width: 0; }
-  .rc-title { font-size: 11px; font-weight: bold; color: var(--ink); }
-  .rc-sub   { font-size: 8px; color: var(--ink-dim); margin-top: 2px; line-height: 1.3; }
-  .rc-right { flex-shrink: 0; display: flex; align-items: center; }
+  .rc-title { font-size: 9px; font-weight: bold; color: var(--ink); white-space: nowrap; }
+  .rc-sub   { font-size: 7px; color: var(--ink-dim); margin-top: 2px; line-height: 1.3; white-space: nowrap; }
+  .rc-right { flex-shrink: 0; display: flex; align-items: center; gap: 3px; }
   .rc-badge.locked { background: rgba(255,255,255,0.07); color: var(--purple); }
 
   .row-card.locked-row { cursor: default; }
   .row-card.locked-row:active { transform: none; box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 3px 0 rgba(0,0,0,0.4); }
 
-  /* 像素 ◀ ▶ / + − 调节器 */
-  .stepper { display: inline-flex; align-items: center; gap: 4px;
-    background: rgba(0,0,0,0.3); border: 2px solid var(--line); border-radius: 5px; padding: 2px 3px;
-    box-shadow: inset 0 2px 0 rgba(0,0,0,0.4), 0 2px 0 rgba(0,0,0,0.4); font-family: var(--pixel-font); }
+  /* ◀▶ stepper 调节器：用于起床时间(±30 min) / 晨间·运动·阅读(±0.5h) */
+  .stepper { position: relative; display: inline-flex; align-items: center; gap: 4px;
+    padding: 2px 4px; }
+  .step-val { font-family: var(--pixel-font); font-size: 11px; font-weight: bold;
+    color: var(--ink); min-width: 38px; text-align: center; padding: 3px 6px;
+    background: var(--pink-soft); border: 2px solid var(--line); border-radius: 4px;
+    box-shadow: inset 0 2px 0 rgba(0,0,0,0.18), 0 1px 0 rgba(0,0,0,0.25); }
+  .step-unit { font-family: var(--pixel-font); font-size: 9px; color: var(--ink-dim);
+    margin-left: 2px; letter-spacing: 1px; }
+  /* 三个原生 select 组成日期选择框（透明背景，跟随主题） */
+  .rc-select { width: auto; min-width: 50px; max-width: 80px; padding: 4px 18px 4px 4px;
+    text-align: center; text-align-last: center;
+    background: var(--pink-soft); color: var(--ink); }
+  /* 年需要塞下 "2026年"。加 #view-main 前缀拿到 (0,1,2,0) 特异性，盖过 #view-main .rc-input (0,1,1,0) */
+  #view-main .rc-select.rc-select-year { min-width: 72px; max-width: 94px;
+    font-family: var(--pixel-font); font-weight: bold; font-size: 9px;
+    padding: 4px 18px 4px 4px; }
+  /* 月/日 select 同样要加 #view-main 前缀盖住 #view-main .rc-input */
+  #view-main .rc-select.rc-select-sm { padding: 4px 18px 4px 4px;
+    font-size: 9px; font-weight: bold; line-height: 1.2;
+    background: var(--pink-soft); color: var(--ink); border: 3px solid var(--line); }
+  .rc-sep { font-family: var(--pixel-font); font-size: 10px; color: var(--ink-dim); margin: 0 1px; align-self: center; }
   .step-btn { appearance: none; cursor: pointer; width: 22px; height: 22px;
-    display: inline-flex; align-items: center; justify-content: center; font-family: var(--pixel-font); font-size: 12px; font-weight: bold; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center; font-family: var(--pixel-font); font-size: 10px; font-weight: bold;
     color: #fff; background: linear-gradient(180deg, var(--pink), var(--pink-deep)); border: 2px solid #B23A6E; border-radius: 4px;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 2px 0 #B23A6E;
     transition: transform .06s ease, box-shadow .06s ease; }
   .step-btn:active { transform: translateY(2px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 #B23A6E; }
-  .step-val { min-width: 44px; text-align: center; font-family: var(--pixel-font); font-size: 12px; font-weight: bold; color: var(--ink); letter-spacing: 1px; }
-  .step-unit { font-size: 8px; color: var(--ink-dim); margin-left: 1px; }
+  .delta { position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    font-family: var(--pixel-font); font-size: 10px; font-weight: bold; color: var(--yellow);
+    pointer-events: none; animation: deltaFloat .7s ease-out forwards; }
+  @keyframes deltaFloat { 0% { opacity: 1; transform: translate(0, -50%); } 100% { opacity: 0; transform: translate(0, -120%); } }
 
   #view-main .rc-input { width: 100%; max-width: 120px; font-family: var(--pixel-font); font-size: 10px; font-weight: bold;
     color: var(--ink); background: rgba(0,0,0,0.3); border: 2px solid var(--line); border-radius: 5px; padding: 6px 8px;
     box-shadow: inset 0 2px 0 rgba(0,0,0,0.4), 0 2px 0 rgba(0,0,0,0.4); outline: none; cursor: text; pointer-events: auto; }
   #view-main .rc-input::placeholder { color: var(--ink-dim); font-weight: normal; }
   #view-main .rc-input:focus { border-color: var(--pink); }
-  #view-main .rc-date { max-width: 152px; font-size: 10px; color: var(--ink); }
-  #view-main .rc-date::-webkit-calendar-picker-indicator { cursor: pointer; opacity: 0.7; filter: invert(1); }
+
+
 
   select, input[type="text"] { appearance: none; -webkit-appearance: none;
     border: 3px solid var(--line); background: rgba(0,0,0,0.3); color: var(--ink);
@@ -860,14 +880,7 @@
   .screen-fx::after { content: ""; position: absolute; left: -10%; top: -35%; width: 120%; height: 55%;
     background: linear-gradient(180deg, rgba(255,255,255,0.14), rgba(255,255,255,0));
     transform: rotate(-8deg); border-radius: 50%; }
-  /* 极轻微的整体亮度闪烁，模拟 CRT */
-  .console-screen { animation: crtFlicker 7s steps(1) infinite; }
-  @keyframes crtFlicker {
-    0%, 100% { filter: brightness(1); }
-    47% { filter: brightness(1.025); }
-    50% { filter: brightness(0.965); }
-    53% { filter: brightness(1.02); }
-  }
+  .console-screen { animation: none; /* 屏幕保持静态，关掉整屏亮度微闪，避免手机端一闪一暗 */ }
 
   /* 底部导航：奶油底 + 淡紫描边（高度固定，所有页面共用同一高度 → 屏幕/爱心不随页面变化） */
   .console-bottom { flex: 0 0 150px; height: 150px; position: relative; display: flex; justify-content: flex-start; align-items: center;
@@ -1111,9 +1124,9 @@
   .dl-folder.locked .dl-folder-face { filter: grayscale(1) opacity(0.7); }
   .dl-folder.locked .dl-folder-count { color: #A99FB6; }
   /* 日历弹窗 / 文件夹详情弹窗（复用掌机遮罩风） */
-  .dl-overlay { position: absolute; inset: 0; z-index: 21; display: flex; align-items: center; justify-content: center; background: rgba(40,20,60,0.46); padding: 18px; }
+  .dl-overlay { position: fixed; inset: 0; z-index: 21; display: flex; align-items: center; justify-content: center; background: rgba(40,20,60,0.46); padding: 18px; }
   .dl-overlay[hidden] { display: none; }
-  .dl-cal-panel, .dl-folder-panel { width: min(340px, 92%); max-height: 86%; background: var(--cream); border: 3px solid var(--pink); border-radius: 10px;
+  .dl-cal-panel, .dl-folder-panel { width: min(340px, 92%); max-height: 96%; background: var(--cream); border: 3px solid var(--pink); border-radius: 10px;
     padding: 15px 14px 14px; box-shadow: 0 10px 30px rgba(120,40,90,0.42), inset 0 0 0 2px #FFE0EE; display: flex; flex-direction: column; animation: wcPop .28s ease; overflow: auto; }
   .dl-cal-head, .dl-folder-day { font-family: var(--pixel-font); font-size: 11px; letter-spacing: 1px; color: var(--pink-deep); text-align: center; }
   .dl-cal-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 8px 4px; margin: 12px 0; }
@@ -1360,14 +1373,11 @@
 .theme-game .rc-title { color: #5A3A6E; }
 .theme-game .rc-sub { color: #AE92C6; }
 .theme-game .rc-badge { border-color: #E7C9DC; }
-.theme-game .stepper { background: #FFF0F6; border-color: var(--line);
-  box-shadow: inset 0 2px 0 rgba(200,150,178,0.18), 0 2px 0 rgba(200,150,178,0.3); }
-.theme-game .step-val { color: #5A3A6E; }
-.theme-game .step-unit { color: #B78DAA; }
 .theme-game .rc-input, .theme-game #view-main .rc-input { background: #FFF0F6; border-color: var(--line); color: #5A3A6E;
   box-shadow: inset 0 2px 0 rgba(200,150,178,0.15), 0 2px 0 rgba(200,150,178,0.25); }
 .theme-game #view-main .rc-input::placeholder { color: #C39AB6; }
 .theme-game .rc-date::-webkit-calendar-picker-indicator { filter: none; }
+
 .theme-game select, .theme-game input[type="text"] { background-color: #FFF0F6; border-color: var(--line); color: #5A3A6E;
   box-shadow: 0 3px 0 rgba(200,150,178,0.3); }
 .theme-game select:focus, .theme-game input[type="text"]:focus { background-color: #FFE6F0; border-color: var(--pink); }
@@ -1469,8 +1479,6 @@
 /* CLAW 视图下彻底关掉背景层（屏外像素装饰 + CRT 扫描线） */
 body.on-claw .deco-layer,
 body.on-claw .screen-fx { display: none !important; }
-/* CLAW 视图下屏幕完全静止：关掉整屏 crtFlicker 微闪，玻璃只保留静态材质 */
-body.on-claw .console-screen { animation: none; }
 
 /* 屏幕里的像素娃娃机——整体外壳容器（撑满 view-claw） */
 .claw-wrap {
@@ -2540,8 +2548,13 @@ body.on-claw .claw-confirm:active { transform: translateY(4px); box-shadow: inse
             <div class="rc-sub">选择你正式开始的日子</div>
           </div>
         </div>
-        <div class="rc-right">
-          <input type="date" id="m-start" class="rc-input rc-date" />
+        <div class="rc-right rc-date-wrap">
+          <select id="m-start-y" class="rc-input rc-select rc-select-sm rc-select-year" aria-label="年"></select>
+          <span class="rc-sep">-</span>
+          <select id="m-start-m" class="rc-input rc-select rc-select-sm" aria-label="月"></select>
+          <span class="rc-sep">-</span>
+          <select id="m-start-d" class="rc-input rc-select rc-select-sm" aria-label="日"></select>
+          <input type="hidden" id="m-start" />
         </div>
       </div>
 
@@ -2555,9 +2568,9 @@ body.on-claw .claw-confirm:active { transform: translateY(4px); box-shadow: inse
         </div>
         <div class="rc-right">
           <div class="stepper" id="m-wake" data-type="time" data-min="0" data-max="1410" data-value="420">
-            <button class="step-btn" type="button" data-dir="-1" aria-label="提前">◀</button>
+            <button class="step-btn" type="button" data-dir="-1" aria-label="提前30分钟">◀</button>
             <span class="step-val">07:00</span>
-            <button class="step-btn" type="button" data-dir="1" aria-label="推迟">▶</button>
+            <button class="step-btn" type="button" data-dir="1" aria-label="推迟30分钟">▶</button>
           </div>
         </div>
       </div>
@@ -2571,10 +2584,10 @@ body.on-claw .claw-confirm:active { transform: translateY(4px); box-shadow: inse
           </div>
         </div>
         <div class="rc-right">
-          <div class="stepper" id="m-ritual" data-type="hour" data-min="1" data-max="20" data-value="2">
-            <button class="step-btn" type="button" data-dir="-1" aria-label="减少">−</button>
-            <span class="step-val">1</span><span class="step-unit">小时</span>
-            <button class="step-btn" type="button" data-dir="1" aria-label="增加">+</button>
+          <div class="stepper" id="m-ritual" data-type="hour" data-min="2" data-max="40" data-value="4">
+            <button class="step-btn" type="button" data-dir="-1" aria-label="减少0.5小时">◀</button>
+            <span class="step-val">2</span><span class="step-unit">小时</span>
+            <button class="step-btn" type="button" data-dir="1" aria-label="增加0.5小时">▶</button>
           </div>
         </div>
       </div>
@@ -2588,10 +2601,10 @@ body.on-claw .claw-confirm:active { transform: translateY(4px); box-shadow: inse
           </div>
         </div>
         <div class="rc-right">
-          <div class="stepper" id="m-exercise" data-type="hour" data-min="1" data-max="20" data-value="2">
-            <button class="step-btn" type="button" data-dir="-1" aria-label="减少">−</button>
-            <span class="step-val">1</span><span class="step-unit">小时</span>
-            <button class="step-btn" type="button" data-dir="1" aria-label="增加">+</button>
+          <div class="stepper" id="m-exercise" data-type="hour" data-min="2" data-max="40" data-value="4">
+            <button class="step-btn" type="button" data-dir="-1" aria-label="减少0.5小时">◀</button>
+            <span class="step-val">2</span><span class="step-unit">小时</span>
+            <button class="step-btn" type="button" data-dir="1" aria-label="增加0.5小时">▶</button>
           </div>
         </div>
       </div>
@@ -2605,10 +2618,10 @@ body.on-claw .claw-confirm:active { transform: translateY(4px); box-shadow: inse
           </div>
         </div>
         <div class="rc-right">
-          <div class="stepper" id="m-reading" data-type="hour" data-min="1" data-max="20" data-value="1">
-            <button class="step-btn" type="button" data-dir="-1" aria-label="减少">−</button>
+          <div class="stepper" id="m-reading" data-type="hour" data-min="2" data-max="40" data-value="2">
+            <button class="step-btn" type="button" data-dir="-1" aria-label="减少0.5小时">◀</button>
             <span class="step-val">1</span><span class="step-unit">小时</span>
-            <button class="step-btn" type="button" data-dir="1" aria-label="增加">+</button>
+            <button class="step-btn" type="button" data-dir="1" aria-label="增加0.5小时">▶</button>
           </div>
         </div>
       </div>
@@ -3478,60 +3491,66 @@ function fillHourSelect(sel, defaultVal, max = 10) {
 }
 
 /* ---------- 调节器工具 ---------- */
-function timeToMin(t) { const p = String(t).split(":"); return Number(p[0]) * 60 + Number(p[1] || 0); }
-function minToTime(m) { const h = Math.floor(m / 60), mm = m % 60; return ("0" + h).slice(-2) + ":" + ("0" + mm).slice(-2); }
-function formatHour(units) {
-  const h = Number(units) / 2;                  // 单位为 0.5 小时
-  return (Number.isInteger(h) ? h : h.toFixed(1)) + "小时";
-}
-function setStepper(id, val) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  if (el.dataset.type === "time") {
-    el.dataset.value = Number(val);
-    el.querySelector(".step-val").textContent = minToTime(Number(val));
-  } else {
-    const units = Math.round(Number(val) * 2);   // 0.5 小时 = 1 单位
-    el.dataset.value = units;
-    el.querySelector(".step-val").textContent = formatHour(units);
-  }
-}
-function getStepper(id) {
-  const el = document.getElementById(id);
-  const v = Number(el.dataset.value);
-  return el.dataset.type === "time" ? minToTime(v) : (v / 2);
-}
-function stepStepper(stepper, dir) {
-  const min = Number(stepper.dataset.min), max = Number(stepper.dataset.max);
-  const step = stepper.dataset.type === "time" ? 30 : 1;   // 起床 30 分钟一档；小时项 0.5 小时一档（内部单位）
-  const next = Number(stepper.dataset.value) + dir * step;
-  if (next < min || next > max) return;          // 到边界不改变
-  if (next === Number(stepper.dataset.value)) return;
-  stepper.dataset.value = next;
-  stepper.querySelector(".step-val").textContent = stepper.dataset.type === "time" ? minToTime(next) : formatHour(next);
-  const txt = stepper.dataset.type === "time" ? (dir > 0 ? "+30" : "-30") : (dir > 0 ? "+0.5" : "-0.5");
-  floatDelta(stepper, txt);
-  const row = stepper.closest(".row-card");
-  if (row && row.dataset.key) { setItems.add(row.dataset.key); }   // 该设置项已设置
-  updateProgress();
-}
-function floatDelta(stepper, text) {
-  const row = stepper.closest(".row-card");
-  if (!row) return;
-  const d = document.createElement("span");
-  d.className = "delta";
-  d.textContent = text;
-  row.appendChild(d);
-  setTimeout(() => d.remove(), 700);
-}
+
 function selectRow(row) {
   if (!row) return;
   document.querySelectorAll("#view-main .row-card").forEach(r => r.classList.remove("selected"));
   row.classList.add("selected");
 }
+/* ◀▶ stepper 工具：time(分钟,步长30) 与 hour(半小时单位,显示=N/2 小时,步长=1) */
+function pad2(n){ return ("0" + n).slice(-2); }
+function parseTimeToMinutes(s){
+  const [h, m] = (s || "07:00").split(":").map(Number);
+  return ((Number.isFinite(h) ? h : 0) * 60) + (Number.isFinite(m) ? m : 0);
+}
+function toHalfHours(h){ return Math.max(0, Math.round(Number(h) * 2)); }
+function formatStep(type, value){
+  if (type === "time") {
+    const total = Math.max(0, Math.min(23*60+30, Math.round(value)));
+    return pad2(Math.floor(total/60)) + ":" + pad2(total%60);
+  }
+  if (type === "hour") {
+    return (Math.max(0, value) / 2).toString();
+  }
+  return String(value);
+}
+function setStepper(el, value){
+  if (!el) return;
+  const t = el.dataset.type;
+  const min = Number(el.dataset.min);
+  const max = Number(el.dataset.max);
+  let v = Math.round(Number(value));
+  if (Number.isFinite(min)) v = Math.max(min, v);
+  if (Number.isFinite(max)) v = Math.min(max, v);
+  el.dataset.value = v;
+  const valEl = el.querySelector(".step-val");
+  if (valEl) valEl.textContent = formatStep(t, v);
+}
+function getStepper(el){
+  if (!el) return null;
+  return Number(el.dataset.value);
+}
+function stepStepper(btn){
+  const el = btn.closest(".stepper");
+  if (!el) return;
+  const dir = Number(btn.dataset.dir);
+  const t = el.dataset.type;
+  const min = Number(el.dataset.min);
+  const max = Number(el.dataset.max);
+  const step = (t === "time") ? 30 : 1;   // time: ±30 min; hour: 内部存的是半小时单位,所以 ±1 = ±0.5h
+  let v = Number(el.dataset.value) + dir * step;
+  if (Number.isFinite(min)) v = Math.max(min, v);
+  if (Number.isFinite(max)) v = Math.min(max, v);
+  setStepper(el, v);
+  const d = document.createElement("span");
+  d.className = "delta";
+  d.textContent = (t === "time") ? (dir > 0 ? "+30" : "-30") : (dir > 0 ? "+0.5" : "-0.5");
+  btn.closest(".row-card").appendChild(d);
+  setTimeout(() => d.remove(), 700);
+  el.dispatchEvent(new Event("change", { bubbles: true }));
+}
 
 /* ---------- 保存按钮状态（6 项全部填写后才可点击） ---------- */
-const setItems = new Set();            // 记录用户已设置的项（点击箭头 / 填写新技能）
 function allSet() {
   // 6 项：开始时间 + 起床/晨间/运动/阅读（有默认值）+ 新技能
   // 起床/晨间/运动/阅读 始终有值（默认已填），只需用户填「开始时间」与「新技能」
@@ -3556,20 +3575,21 @@ function renderMain() {
   if (wrap) wrap.classList.remove("burst");
   const cfg = loadConfig();
   document.getElementById("m-start").value = cfg.start || "";
-  setStepper("m-wake", timeToMin(cfg.wake));
-  setStepper("m-ritual", cfg.ritual);
-  setStepper("m-exercise", cfg.exercise);
-  setStepper("m-reading", cfg.reading);
+  if (window.__setMStart) window.__setMStart(cfg.start || "");
+  setStepper(document.getElementById("m-wake"),     parseTimeToMinutes(cfg.wake || "07:00"));
+  setStepper(document.getElementById("m-ritual"),   toHalfHours(cfg.ritual   != null ? cfg.ritual   : 2));
+  setStepper(document.getElementById("m-exercise"), toHalfHours(cfg.exercise != null ? cfg.exercise : 2));
+  setStepper(document.getElementById("m-reading"),  toHalfHours(cfg.reading  != null ? cfg.reading  : 1));
   document.getElementById("m-skill").value = "";   // 新技能每次进入都空白，由用户填写（不回填已保存值）
   updateProgress();
 }
 function collectMain() {
   return {
     start: document.getElementById("m-start").value || "",
-    wake: getStepper("m-wake"),
-    ritual: Number(getStepper("m-ritual")),
-    exercise: Number(getStepper("m-exercise")),
-    reading: Number(getStepper("m-reading")),
+    wake: formatStep("time", getStepper(document.getElementById("m-wake"))) || "07:00",
+    ritual:   getStepper(document.getElementById("m-ritual"))   / 2,
+    exercise: getStepper(document.getElementById("m-exercise")) / 2,
+    reading:  getStepper(document.getElementById("m-reading"))  / 2,
     skill: (document.getElementById("m-skill").value || "").trim()
   };
 }
@@ -4205,16 +4225,11 @@ function playSaveBoot(done){
   setTimeout(() => { ov.hidden = true; done(); }, 1300);
 }
 
-// 主界面游戏式交互：点行选中高亮；点 ◀▶/+− 调节属性并浮动 +1/-1
+// 主界面交互：点行选中高亮；日期/起床的 ◀▶ 按钮 ±30 分钟
 const mainView = document.getElementById("view-main");
 mainView.addEventListener("click", (e) => {
-  const stepBtn = e.target.closest(".step-btn");
-  if (stepBtn) {
-    const stepper = stepBtn.closest(".stepper");
-    stepStepper(stepper, Number(stepBtn.dataset.dir));
-    selectRow(stepBtn.closest(".row-card"));
-    return;
-  }
+  const stp = e.target.closest(".step-btn");
+  if (stp) { stepStepper(stp); selectRow(stp.closest(".row-card")); return; }
   const row = e.target.closest(".row-card");
   if (row && !row.classList.contains("locked-row")) selectRow(row);
 });
@@ -4229,6 +4244,51 @@ document.getElementById("m-start").addEventListener("focus", () => {
 });
 document.getElementById("m-start").addEventListener("change", updateProgress);
 document.getElementById("m-start").addEventListener("input", updateProgress);
+
+// 成长副本开始时间：三个原生 <select>（年/月/日）合成 YYYY-MM-DD 写入隐藏的 #m-start
+(function initStartDateSelects(){
+  const yEl = document.getElementById("m-start-y");
+  const mEl = document.getElementById("m-start-m");
+  const dEl = document.getElementById("m-start-d");
+  const hid = document.getElementById("m-start");
+  if (!yEl || !mEl || !dEl || !hid) return;
+  for (let y = 2024; y <= 2030; y++){ const o=document.createElement("option"); o.value=y; o.textContent=y+"年"; yEl.appendChild(o); }
+  for (let m = 1; m <= 12; m++){ const o=document.createElement("option"); o.value=m; o.textContent=m+"月"; mEl.appendChild(o); }
+  function fillDays(){
+    const y = +yEl.value, m = +mEl.value;
+    const days = new Date(y, m, 0).getDate();
+    const cur = +dEl.value;
+    dEl.innerHTML = "";
+    for (let d = 1; d <= days; d++){ const o=document.createElement("option"); o.value=d; o.textContent=d+"日"; dEl.appendChild(o); }
+    dEl.value = (cur >= 1 && cur <= days) ? cur : 1;
+  }
+  function compose(){
+    if (!yEl.value || !mEl.value || !dEl.value) hid.value = "";
+    else hid.value = `${yEl.value}-${("0"+mEl.value).slice(-2)}-${("0"+dEl.value).slice(-2)}`;
+    hid.dispatchEvent(new Event("change",{bubbles:true}));
+    hid.dispatchEvent(new Event("input", {bubbles:true}));
+  }
+  yEl.addEventListener("change", () => { fillDays(); compose(); });
+  mEl.addEventListener("change", () => { fillDays(); compose(); });
+  dEl.addEventListener("change", compose);
+  const row = document.querySelector('#view-main .row-card[data-key="start"]');
+  [yEl, mEl, dEl].forEach(el => el.addEventListener("focus", () => { if (row) selectRow(row); }));
+  window.__setMStart = function(v){
+    if (!v || !/^\d{4}-\d{2}-\d{2}$/.test(v)) {
+      yEl.value = "2026"; mEl.value = "6"; fillDays(); dEl.value = "6";
+      compose();
+      return;
+    }
+    yEl.value = v.slice(0,4);
+    mEl.value = parseInt(v.slice(5,7),10);
+    fillDays();
+    const dn = parseInt(v.slice(8,10),10);
+    dEl.value = (dn >= 1 && dn <= +dEl.options[dEl.options.length-1].value) ? dn : 1;
+    hid.value = v;
+  };
+  yEl.value = "2026"; mEl.value = "6"; fillDays(); dEl.value = "6";
+  compose();
+})();
 
 // 弹窗：点遮罩 / ✕ 关闭
 document.getElementById("modalMask").addEventListener("click", (e) => {
@@ -4553,18 +4613,21 @@ document.getElementById("resetConfirm").addEventListener("click", () => {
 /* ================= 开机动画 ================= */
 function runBoot() {
   const boot = document.getElementById("view-boot");
+  // 老玩家（已完成首次 PLAYER SETUP）：跳过开机动画与整套首次引导，直达首页
+  // —— 保证「从开头到玩家属性初始设置」仅首次进入出现一次
+  if (isPlayerInitialized()) {
+    boot.classList.add("hidden", "fade-out");
+    switchTo("view-home");
+    renderHome();
+    return;
+  }
   // 进度条填满后，同步淡出开机画面并切换到目标视图：
   // 目标视图在 DOM 顺序上位于 view-boot 之后，新视图在上层覆盖开机画面，
   // 避免 3800~4250ms 期间开机画面 #000 背景透出造成的黑屏闪烁
   setTimeout(() => {
     boot.classList.add("fade-out");
-    if (isPlayerInitialized()) {
-      switchTo("view-home");
-      renderHome();
-    } else {
-      switchTo("view-intro");
-      runIntro();
-    }
+    switchTo("view-intro");
+    runIntro();
   }, 3800);
 }
 
@@ -6099,7 +6162,7 @@ function dlOpenFolder(n){
   }
   const foot = document.getElementById("dlFolderFoot");
   if(foot) foot.textContent = done + " / 8 COMPLETED" + (done === 0 ? "  ·  EMPTY" : "");
-  const fol = document.getElementById("dlFolder"); if(fol) fol.hidden = false;
+  const fol = document.getElementById("dlFolder"); if(fol){ const _dlPanel = fol.querySelector(".dl-folder-panel"); if(_dlPanel) _dlPanel.scrollTop = 0; fol.hidden = false; }
 }
 function dlCloseFolder(){ const fol = document.getElementById("dlFolder"); if(fol) fol.hidden = true; }
 // 单个任务 50 天日历：50 个小圆圈 ●完成 ○未完成（未来天数锁定/灰色，仅查看，与 HOME 完全同步）
