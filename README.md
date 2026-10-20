@@ -24,5 +24,4 @@
 
 ## 🔗 在线体验 (Live Demo)
 
-👉 **[点击这里体验 50-days-life 真实 MVP]((https://happplhgooogle-source.github.io/50-days-life/))**
-*(建议在手机端或浏览器移动端模式下体验，沉浸感更强)*
+👉 **[点击这里体验 50-days-life 真实 MVP](https://happplhgooogle-source.github.io/50-days-life/)**
